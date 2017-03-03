@@ -4,21 +4,15 @@ import ENV from '../config/environment';
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
   session: Ember.inject.service(),
-  authenticatedAjax: Ember.inject.service(),
   sessionAuthenticated() {
     this._super(...arguments); // for keeping the defaults (attempted transition, routeAfterAuth config etc..)
     this.loadUser();
   },
   loadUser() {
-    if (!this.get('session.isAuthenticated')) {
+    if (!this.get('session.isAuthenticated'))
       return;
-    }
 
-    const url = `${ENV.apiBaseURL}/users/me`;
-    const request = this.get('authenticatedAjax').request(url);
-    request.then((userData) => {
-      this.store.pushPayload(userData);
-      const user = this.store.peekRecord('user', userData.data.id);
+    this.store.findRecord('user', 'me').then(user => {
       this.set('session.currentUser', user);
     });
   },

@@ -4,11 +4,11 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 export default Ember.Route.extend(UnauthenticatedRouteMixin, {
   session: Ember.inject.service(),
   actions: {
-    login(email, password) {
-      this.controller.set('isLogginIn', true);
-      this.get('session').authenticate('authenticator:oauth2', email, password)
-        .catch(()   => this.controller.set('errorMessage', 'Invalid login.'))
-        .finally(() => this.controller.set('isLogginIn', false));
+    login(username, password) {
+      this.controller.set('isLoggingIn', true);
+      this.get('session').authenticate('authenticator:oauth2', username, password)
+        .catch(() => this.controller.set('errorMessage', "Invalid login."))
+        .finally(() => this.controller.set('isLoggingIn', false));
     }
   }
 });

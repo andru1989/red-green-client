@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import AjaxService from 'ember-ajax/services/ajax';
-import ENV from '../config/environment';
+import ENV from "../config/environment";
 
 export default AjaxService.extend({
   session: Ember.inject.service(),
@@ -12,6 +12,7 @@ export default AjaxService.extend({
         headers[headerName] = headerValue;
       }
     );
+
     return headers;
   })
 });
